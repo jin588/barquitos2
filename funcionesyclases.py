@@ -7,7 +7,7 @@ def es_posicion_valida(tablero, fila, columna): # para colocar los barcos
     for dx in range(-1, 2): # rango -1,1 de las filas
         for dy in range(-1, 2):
             if 0 <= fila + dx < tablero.tamaño[0] and 0 <= columna + dy < tablero.tamaño[1]: # verifica si la coordenada esta dentro del tablero.
-                if tablero.tablero[fila + dx][columna + dy] != ",": # verifica que la coordenada no tiene otro barco
+                if tablero.tablero[fila + dx][columna + dy] != ",": # verifica que la coordenada tiene otro barco
                     return False # si no esta dentro del tablero o la coordinada esta ocupada vuelve a empezar.
     return True # la posicion es valida.
 
@@ -16,11 +16,11 @@ def marcar_casillas_colindantes(tablero, fila, columna):
         for dy in range(-1, 2):
             if 0 <= fila + dx < tablero.tamaño[0] and 0 <= columna + dy < tablero.tamaño[1]:
                 if tablero.tablero[fila + dx][columna + dy] == ",":
-                    tablero.tablero[fila + dx][columna + dy] = "X" # marca con X las casillas colindantes de los barcos.
+                    tablero.tablero[fila + dx][columna + dy] = "X" # marca con X las casillas colindantes de los barcos.  jugabilidad.
 
 
 def disparar_jugador(tablero_maquina, mi_tablero_disparos, fila, columna, barcos_maquina): # mis disparos
-    acierto = False
+    acierto = False 
     if tablero_maquina.tablero[fila][columna] in ["N", "S", "E", "W"]: # impactamos
         tablero_maquina.tablero[fila][columna] = "O" 
         mi_tablero_disparos.tablero[fila][columna] = "O"
@@ -46,7 +46,7 @@ def disparar_jugador(tablero_maquina, mi_tablero_disparos, fila, columna, barcos
         
 def disparar_maquina(mi_tablero, tablero_maquina_disparos, fila, columna, barcos_jugador):
     acierto = False 
-    if mi_tablero.tablero[fila][columna] in ["N", "S", "E", "W"]: 
+    if mi_tablero.tablero[fila][columna] in ["N", "S", "E", "W"]: # verifica si el disparo da en n, s ...
         mi_tablero.tablero[fila][columna] = "O"
         tablero_maquina_disparos.tablero[fila][columna] = "O"
         for barco in barcos_jugador:
@@ -115,10 +115,10 @@ class Tablero:
     def crear_tablero(self): # creamos la matriz que representa los tableros de juego.
         return np.full(self.tamaño, ",") 
     
-    def __str__(self): # este metodo permite imprimir los tableros mediante una cadena
-        numeros = [str(i) for i in range(self.tamaño[0] )] # columnas del tablero
-        tablero_str = '  ' + ' '.join(numeros) + '\n' # convertimos la lista de numeros en una cadena separa por " "
-        for i in range(self.tamaño[0]): # recorremos cada fila y la convertimos en una cadena
+    def __str__(self): # este metodo convierte objetos en cadenas.
+        numeros = [str(i) for i in range(self.tamaño[0] )] # creamos una lista con los valores de las columnas 
+        tablero_str = '  ' + ' '.join(numeros) + '\n' # convertimos la lista de numeros de las columnas en una cadena de texto separa por " "
+        for i in range(self.tamaño[0]): # recorremos cada fila y la convertimos en _str
             fila_str = str(i).rjust(2) + ' ' + ' '.join(self.tablero[i]) + '\n' 
             tablero_str += fila_str # añádimos la cadena de la fila a la cadena del tablero.
-        return tablero_str # devuelve la cadena del tablero completa.
+        return tablero_str # devuelve la cadena de texto del tablero completa.

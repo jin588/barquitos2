@@ -20,7 +20,7 @@ for tamaño in TAMAÑOS_BARCOS: #tamaños_barcos nos dice los barcos a colocar e
     barco_creado_jugador = False
     barco_creado_maquina = False
     while not barco_creado_jugador: # rellenamos nuestro tablero
-        barco_jugador = Barco(tamaño) # creamos un barco de la clase Barco, en la clase Barco definimos su tamaño.
+        barco_jugador = Barco(tamaño) # creamos un barco de la clase Barco
         if barco_jugador.colocar(mi_tablero):
             barcos_jugador.append(barco_jugador)
             barco_creado_jugador = True
@@ -42,7 +42,7 @@ while True:
         # Imprimir los tableros después de cada disparo
         imprimir_tableros_en_paralelo(mi_tablero.tablero, mi_tablero_disparos.tablero) 
 
-        k
+        
 
     acierto = True
     while acierto: # turno maquina
@@ -54,9 +54,7 @@ while True:
         os.system('cls' if os.name == 'nt' else 'clear') # limpiar la consola
         imprimir_tableros_en_paralelo(mi_tablero.tablero, mi_tablero_disparos.tablero)
 
-    if all(barco.golpes == barco.tamaño for barco in barcos_maquina):
-            print("Braviiisimo !!HAS GANADO!!")
-            break
+    
     
             
     if all(barco.golpes == barco.tamaño for barco in barcos_jugador):
